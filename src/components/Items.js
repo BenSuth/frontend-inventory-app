@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import Export from './Export'
 import {useQuery, useMutation, gql} from '@apollo/client'
-import { Collapse } from 'react-bootstrap'
+import { Form, Row, Button, Col, ListGroup, Card } from 'react-bootstrap'
 import '../stylesheets/items.css'
 
 const CREATE_ITEM_QUERY = gql`
@@ -89,7 +89,6 @@ const Items = () => {
     if (update_error) return (<pre> {update_error.message} </pre>)   
     if (delete_error) return (<pre> {delete_error.message} </pre>)   
 
-    if (!item_loading) console.log(item_data.fetchItems)
     const handleSubmit = async (evt) => {
         evt.preventDefault();
         if (parseInt(count) < 0) {
@@ -105,25 +104,6 @@ const Items = () => {
         setTags("")
         refetch()
     }
-
-    const handleUpdateForm = async (id) => {
-        let update = isUpdate
-        if (update[id]) {
-            update[id] = false
-        } else {
-            update[id] = true
-        }
-        setIsUpdate(update)
-    }
-
-    const handleUpdate = async (id) => {
-        if (isUpdate[id]) {
-            isUpdate[id] = false
-        } else {
-            isUpdate[id] = true
-        }
-        setIsUpdate(isUpdate)
-    }
     
     const handleDelete = async (id) => {
         await deleteItem({variables:{itemId: id}})
@@ -132,40 +112,57 @@ const Items = () => {
 
     return (
         <div>
-            <form onSubmit={handleSubmit}>
-                <h1> Create an Item! </h1>
-                <label>
-                    Name:
-                    <input type="text" value={name} onChange={e=> setName(e.target.value)}/>
-                </label>
-                <label>
-                    Count:
-                    <input type="text" value={count} onChange={e=> setCount(e.target.value)}/>
-                </label>
-                <label>
-                    Description:
-                    <input type="textarea" value={description} onChange={e=> setDescription(e.target.value)} />
-                </label>
-                <label>
-                    Tags:
-                    <input type="text" value={tags} onChange={e=> setTags(e.target.value)}/>
-                </label>
-                <input type="submit" value="Submit" />
-            </form>
+            <Form className="text" onSubmit={handleSubmit}>
+                <span> Create an Item! </span><br/>
+                <Row>
+                    <Form.Group as={Col}>
+                        <Form.Label>Name</Form.Label>
+                        <Form.Control value={name} onChange={e => setName(e.target.value)}/>
+                    </Form.Group>
+
+                    <Form.Group as={Col}>
+                        <Form.Label>Count</Form.Label>
+                        <Form.Control value={count} onChange={e => setCount(e.target.value)}/>
+                    </Form.Group>
+                </Row>
+                <Row>
+                    <Form.Group>
+                        <Form.Label>Description</Form.Label>
+                        <div>
+                            <Form.Control as="textarea" value={description} onChange={ e => setDescription(e.target.value)}/>
+                        </div>
+                    </Form.Group>
+                </Row>
+                <Row>
+                    <Form.Group as={Col}>
+                        <Form.Label>Tags</Form.Label>
+                        <div>
+                            <Form.Control as="textarea" value={tags} onChange={e => setTags(e.target.value)}/>
+                        </div>
+                    </Form.Group>
+                </Row>
+                <Button type="submit">
+                    Submit
+                </Button>
+            </Form>
             <div>
             <h1> Items </h1>
                 {!item_loading &&
-                    <ul>
+                    <ListGroup variant="flush">
                         {item_data.fetchItems.map(item => (
-                            <li key={item.id}>
-                                {item.name} <br/>
-                                {"Count: " + parseInt(item.count)} <br/>
-                                {item.description} <br/>
-                                {item.tags} <br/>
-                                <button onClick={() => handleDelete(item.id)}>Delete</button>
-                            </li>
+                            <ListGroup.Item key={item.id}>
+                                    <Card>
+                                        <div className="card-text">
+                                            <Card.Header>{item.name}</Card.Header>
+                                            <Card.Title>{"Count: " + parseInt(item.count)}</Card.Title>
+                                            <Card.Body>{item.description} </Card.Body>
+                                            <Card.Footer>{item.tags} <br/></Card.Footer>
+                                            <button variant="primary" onClick={() => handleDelete(item.id)}>Delete</button>
+                                        </div>
+                                    </Card>
+                            </ListGroup.Item>
                         ))}
-                    </ul>
+                    </ListGroup>
                 }
             </div>
             <Export />
