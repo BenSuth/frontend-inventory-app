@@ -1,5 +1,10 @@
 # Frontend Inventory App
 
+This is the front-end component of my submission for the Backend Developer Intern - Summer 2022
+NOTE: Please visit this repository for the backend code: 
+
+Link to Posting: https://www.shopify.ca/careers/backend-developer-intern-summer-2022-remote-us-canada_f29b717b-42d7-4d32-851b-e5b2c69a16c7
+
 ## Requirements
 - Node 14.18
 - Npm 6.14
