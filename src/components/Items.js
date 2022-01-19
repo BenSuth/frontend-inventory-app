@@ -50,7 +50,7 @@ const Items = () => {
 
     if (create_loading) return "Loading..."
 
-    const handleSubmit = async (evt) => {
+    const handleSubmit = (evt) => {
         evt.preventDefault();
 
         createItem({variables: {name: name, description: description, count: parseInt(count), tags: tags}})
@@ -61,6 +61,7 @@ const Items = () => {
             .catch(e => {
                 setError(e.toString())
             })
+            
         setName("")
         setDescription("")
         setCount(0)
