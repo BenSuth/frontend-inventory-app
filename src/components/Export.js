@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {useQuery, useMutation, gql } from "@apollo/client";
-import { Button } from "react-bootstrap";
+import {Form, Button, Card, ListGroup} from "react-bootstrap";
+import '../stylesheets/export.css'
 
 const EXPORT_QUERY = gql`
     {
@@ -27,8 +28,8 @@ const CREATE_EXPORT_QUERY = gql`
 `
 
 const Export = () => {
-    const {data, loading: export_loading, error: error_loading} = useQuery(EXPORT_QUERY)
-    const [createExport, {loading: create_loading, error: create_error, refetch}] = useMutation(CREATE_EXPORT_QUERY)
+    const {data, loading: export_loading} = useQuery(EXPORT_QUERY)
+    const [createExport, {loading: create_loading, refetch}] = useMutation(CREATE_EXPORT_QUERY)
 
     const [externalName, setExternalName] = useState("")
     const [error, setError] = useState("")
@@ -55,13 +56,28 @@ const Export = () => {
         <div>
             <span> CSV Exports </span> <br/>
             {error !== "" && <span> {error} </span>}
-            <Button onClick={handleSubmit}>
-                Generate Report
-            </Button>
+            <Form onSubmit={handleSubmit}>
+                <Form.Label>Name</Form.Label>
+                <Form.Control value={externalName} onChange={e => setExternalName(e.target.value)}/>
+                <Button type="submit">
+                    Generate Report
+                </Button>
+            </Form>
             <ul>
                 {data.fetchExports.map(file => (
                     <li key={file.id}>
-                        {file.path}
+                        <div customName="custom-card">
+                            <Card>
+                                <Card.Header>{file.internalName}</Card.Header>
+                                <ListGroup variant="flush">
+                                    <ListGroup.Item>{file.externalName}</ListGroup.Item>
+                                    <ListGroup.Item>{file.size}</ListGroup.Item>
+                                    <ListGroup.Item>
+                                        <Card.Link href={file.path}> Download Here! </Card.Link>
+                                    </ListGroup.Item>
+                                </ListGroup>
+                            </Card>
+                        </div>
                     </li>
                 ))}
             </ul>

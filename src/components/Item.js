@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { Form, Row, Button, Col} from 'react-bootstrap'
-import {useQuery, useMutation, gql} from '@apollo/client'
+import {useMutation, gql} from '@apollo/client'
 import '../stylesheets/item.css'
 
 const UPDATE_ITEM_QUERY = gql`
@@ -39,8 +39,8 @@ const DELETE_ITEM_QUERY = gql`
 `
 
 const Item = ({item, refetch}) => {
-    const [updateItem, {loading: update_loading, error: update_error}] = useMutation(UPDATE_ITEM_QUERY)
-    const [deleteItem, {loading: delete_loading, error: delete_error}] = useMutation(DELETE_ITEM_QUERY)
+    const [updateItem, {loading: update_loading}] = useMutation(UPDATE_ITEM_QUERY)
+    const [deleteItem, {loading: delete_loading}] = useMutation(DELETE_ITEM_QUERY)
 
     const [name, setName] = useState(item.name)
     const [description, setDescription] = useState(item.description)
@@ -60,6 +60,7 @@ const Item = ({item, refetch}) => {
         evt.preventDefault();
         updateItem({variables: {itemId: item.id, name: name, description: description, count: count, tags: tags}})
         .then(({data}) => {
+            setDisable(true)
             setError("")
             refetch()
         })

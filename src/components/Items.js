@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import Export from './Export'
 import Item from './Item'
 import {useQuery, useMutation, gql} from '@apollo/client'
-import { Form, Row, Button, Col, ListGroup, Card } from 'react-bootstrap'
+import { Form, Row, Button, Col, ListGroup } from 'react-bootstrap'
 import '../stylesheets/items.css'
 
 const CREATE_ITEM_QUERY = gql`
@@ -39,8 +39,8 @@ const ITEMS_QUERY = gql`
 `
 
 const Items = () => {
-    const {data: item_data, loading: item_loading, error: item_error, refetch: refetch} = useQuery(ITEMS_QUERY)
-    const [createItem, {loading: create_loading, error: create_error}] = useMutation(CREATE_ITEM_QUERY, {errorPolicy: "none"})
+    const {data: item_data, loading: item_loading, refetch} = useQuery(ITEMS_QUERY)
+    const [createItem, {loading: create_loading}] = useMutation(CREATE_ITEM_QUERY, {errorPolicy: "none"})
 
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")

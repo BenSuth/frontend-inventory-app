@@ -1,12 +1,9 @@
 ul {
     list-style-type: none;
 }
-
 .card {
-    padding-left: 35%;
-    padding-bottom: 5%;
+    padding-bottom: 2%;
 }
-
 .card-text {
     text-align: left;
 }
