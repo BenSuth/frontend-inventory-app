@@ -28,8 +28,8 @@ const CREATE_EXPORT_QUERY = gql`
 `
 
 const Export = () => {
-    const {data, loading: export_loading} = useQuery(EXPORT_QUERY)
-    const [createExport, {loading: create_loading, refetch}] = useMutation(CREATE_EXPORT_QUERY)
+    const {data, loading: export_loading, refetch} = useQuery(EXPORT_QUERY)
+    const [createExport, {loading: create_loading}] = useMutation(CREATE_EXPORT_QUERY)
 
     const [externalName, setExternalName] = useState("")
     const [error, setError] = useState("")
@@ -66,7 +66,7 @@ const Export = () => {
             <ul>
                 {data.fetchExports.map(file => (
                     <li key={file.id}>
-                        <div customName="custom-card">
+                        <div>
                             <Card>
                                 <Card.Header>{file.internalName}</Card.Header>
                                 <ListGroup variant="flush">
