@@ -1,5 +1,28 @@
 # Frontend Inventory App
 
+## Requirements
+- Node 14.18
+- Npm 6.14
+
+## Setup
+- git clone https://github.com/BenSuth/frontend-inventory-app.git
+- cd frontend-inventory-app
+- npm install
+- npm run
+- npm start
+- Once all installation and setup complete go to: http://localhost:8000/ to view the application
+- to run on a different port, modify the "start" script in package.json
+```
+"scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
+    "start": "PORT=8000 react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  }
+ ```
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
