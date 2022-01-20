@@ -1,6 +1,6 @@
 # Frontend Inventory App
 
-You can view / try-out the app at: https://bensuth.github.io/frontend-inventory-app/
+You can view / tryout the app at: https://bensuth.github.io/frontend-inventory-app/
 
 This is the front-end component of my submission for the Backend Developer Intern - Summer 2022
 NOTE: Please visit this repository for the backend code: 
