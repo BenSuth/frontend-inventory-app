@@ -3,7 +3,7 @@
 You can view / tryout the app at: https://bensuth.github.io/frontend-inventory-app/
 
 This is the front-end component of my submission for the Backend Developer Intern - Summer 2022
-NOTE: Please visit this repository for the backend code: 
+NOTE: Please visit this repository for the backend code: https://github.com/BenSuth/backend_inventory_app
 
 Link to Posting: https://www.shopify.ca/careers/backend-developer-intern-summer-2022-remote-us-canada_f29b717b-42d7-4d32-851b-e5b2c69a16c7
 
